@@ -29,24 +29,20 @@ public static void main(String[] args){
 }
 /** URL of the remote resource to be downloaded */
 private URL url;
-
 /** target object to be populated */
 // again just a test download target
 private Object target = new File("C:\\autoupdater test\\Download.jar");
 private static final int BUFFER_SIZE = 1024;
 public void download()
 {
-
     try {
     	if(exists((File) target)){
     		backup(((File) target).getPath(),((File) target).getPath() + "backup");
     		System.out.println("Backed up");
     	}
     	else{
-		
 		deleate((File) target);
     	}
-    	
 	} catch (IOException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
@@ -54,11 +50,9 @@ public void download()
     BufferedInputStream bis = null;
     BufferedOutputStream bos = null;
     BufferedReader br = null;
-
     try
     {
         /* open connection to the URL */
-      
         final URLConnection link;
 
         try
@@ -71,16 +65,8 @@ public void download()
           
             throw e;
         }
-
-        /* get length of the remote resource */
-     
-
         /* get size of webpage in bytes; -1 if unknown */
         final int length = link.getContentLength();
-
-       
-
-
         try
         {
             final InputStream input = link.getInputStream();
@@ -129,8 +115,6 @@ public void download()
         /* open output stream, if necessary */
         if (target instanceof File)
         {
-           
-
             try
             {
                 /* create parent directories, if necessary */
@@ -150,9 +134,6 @@ public void download()
                 throw e;
             }
         }
-
-   
-
         try
         {
             if (target instanceof File)
@@ -171,9 +152,7 @@ public void download()
                     }
 
                     bos.write(byteBuffer, 0, byteCount);
-
-                    
-                }
+                } 
             }
             else if (target instanceof StringBuilder)
             {
@@ -182,7 +161,6 @@ public void download()
 
                 while (true)
                 {
-                    
                     final int charCount = br.read(charBuffer, 0, BUFFER_SIZE);
 
                     /* check for end-of-stream */
@@ -192,14 +170,11 @@ public void download()
                     }
 
                     sb.append(charBuffer, 0, charCount);
-
-                  
                 }
             }
         }
         catch (Exception e)
         {
-          
             throw e;
         }
 
@@ -226,7 +201,6 @@ public void download()
             }
         }
 
-        
     }
 }
 public void start(){
@@ -240,10 +214,8 @@ public void start(){
 	}
 }
 public void backup(String fromFileName,String toFileName) throws IOException{
-	
 		    File fromFile = new File(fromFileName);
 		    File toFile = new File(toFileName);
-
 		    if (!fromFile.exists())
 		      throw new IOException("FileCopy: " + "no such source file: "
 		          + fromFileName);
@@ -253,12 +225,9 @@ public void backup(String fromFileName,String toFileName) throws IOException{
 		    if (!fromFile.canRead())
 		      throw new IOException("FileCopy: " + "source file is unreadable: "
 		          + fromFileName);
-
 		    if (toFile.isDirectory())
 		      toFile = new File(toFile, fromFile.getName());
-
 		    if (toFile.exists()) {
-		    
 		    } else {
 		      String parent = toFile.getParent();
 		      if (parent == null)
@@ -274,7 +243,6 @@ public void backup(String fromFileName,String toFileName) throws IOException{
 		        throw new IOException("FileCopy: "
 		            + "destination directory is unwriteable: " + parent);
 		    }
-
 		    FileInputStream from = null;
 		    FileOutputStream to = null;
 		    try {
@@ -282,7 +250,6 @@ public void backup(String fromFileName,String toFileName) throws IOException{
 		      to = new FileOutputStream(toFile);
 		      byte[] buffer = new byte[4096];
 		      int bytesRead;
-
 		      while ((bytesRead = from.read(buffer)) != -1)
 		        to.write(buffer, 0, bytesRead); // write
 		    } finally {
@@ -296,15 +263,13 @@ public void backup(String fromFileName,String toFileName) throws IOException{
 		        try {
 		          to.close();
 		        } catch (IOException e) {
-		          ;
+		          e.printStackTrace();
 		        }
-		    }
-		  
+		    }  
 }
 public boolean deleate(String file){
 	File f = new File(file);
-    return f.delete();
-    		
+    return f.delete();		
 }
 public boolean deleate(File f){
 	return f.delete();
